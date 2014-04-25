@@ -8,7 +8,9 @@ from datetime import datetime, date, timedelta
 from urllib import FancyURLopener
 from bs4 import BeautifulSoup
 from random import choice
+import os
 
+os.environ['http_proxy']=''
 user_agents = [
     'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11',
     'Opera/9.25 (Windows NT 5.1; U; en)',
@@ -33,6 +35,7 @@ delta = timedelta(days = 1) #increment in dates
 while start <= end:
     s = str(start)
     date = s[0:4] + "/" + s[5:7] + "/" + s[8:] + "/"
+    s = s[0:4] + "_" + s[5:7] + "_" + s[8:]
     print "\nIssue Date: " + date
     url = "http://www.gocomics.com/calvinandhobbes/" + date
     print  "Requesting: \" " + url + " \""
@@ -54,7 +57,7 @@ while start <= end:
 
     print "Downloading C&H for " + date + " from \"" + img_link + "\""
     image = urllib2.urlopen(img_link)
-    filename = "D:/Calvin&Hobbes/C&H" + str(start) + ".jpg"
+    filename = "/host/Calvin&Hobbes/CnH" + s + ".jpg"
     file = open(filename, "wb")
     file.write(image.read())
     file.close()
@@ -66,4 +69,3 @@ while start <= end:
 print "\nCalvin&Hobbes downloaded. Thanks for reviewing/using this script."
     
     
-
